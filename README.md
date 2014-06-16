@@ -9,7 +9,9 @@ The program is designed for Python.  Download the file, then open a new python w
 import DD
 
 Newbie=DD.Character()
+
 Newbie.Initial_Stats()
+
 Newbie.Initial_Health()
 
 #For leveling up
