@@ -3,29 +3,6 @@ import sys
 
 class Character():
 
-    #Establish the initial health of your character
-    #depending on your character class and constitution modifier
-    def Initial_Health(self):
-        while True:
-            charclass=input("What is the character class?: ").lower()
-            conmod=int(input("What is the Constitution modifier?: "))
-            if charclass in ["sorcerer","wizard"]: 
-                print("Health is:", 4+conmod)
-                break
-            elif charclass in ["bard","rogue"]:            
-                print("Health is:", 6+conmod)
-                break
-            elif charclass in ["cleric","monk","druid","ranger"]:              
-                print("Health is:", 8+conmod)
-                break
-            elif charclass in ["fighter","paladin"]:            
-                print("Health is:", 10+conmod)
-                break
-            elif charclass in ["barbarian"]:      
-                print("Health is:", 12+conmod)
-                break
-
-    #Establish the initial ability scores of your character
     def Initial_Stats(self):
 
         charclass=input("What is the character class?: ").lower()
@@ -74,6 +51,31 @@ class Character():
                 print("Skill Points to spend are:",(8+intmod)*4+4)
             else:
                 print("Skill Points to spend are:",(8+intmod)*4)
+
+
+    #Establish the initial health of your character
+    #depending on your character class and constitution modifier
+    def Initial_Health(self):
+        while True:
+            charclass=input("What is the character class?: ").lower()
+            conmod=int(input("What is the Constitution modifier?: "))
+            if charclass in ["sorcerer","wizard"]: 
+                print("Health is:", 4+conmod)
+                break
+            elif charclass in ["bard","rogue"]:            
+                print("Health is:", 6+conmod)
+                break
+            elif charclass in ["cleric","monk","druid","ranger"]:              
+                print("Health is:", 8+conmod)
+                break
+            elif charclass in ["fighter","paladin"]:            
+                print("Health is:", 10+conmod)
+                break
+            elif charclass in ["barbarian"]:      
+                print("Health is:", 12+conmod)
+                break
+
+    #Establish the initial ability scores of your character
 
 
 
