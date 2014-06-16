@@ -19,4 +19,5 @@ Newbie.Initial_Health()
 import DD
 
 Veteran=DD.Level_Up()
+
 Veteran.levelup()
