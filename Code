@@ -230,7 +230,7 @@ class Level_Up():
                      print("Other Saves Unchanged")
              elif level%2!=0 and level%3!=0:
                  print("All Saves Unchanged")
-        elif charclass in ["monk"]: #Anybody in there?!
+        elif charclass in ["monk"]:
              if level%2==0:
                  print("New Fortitude is:", fortitude + 1)
                  print("New Reflex is:", reflex + 1)
