@@ -1,0 +1,300 @@
+import random
+import sys
+
+class Character():
+
+    #Establish the initial health of your character
+    #depending on your character class and constitution modifier
+    def Initial_Health(self):
+        while True:
+            charclass=input("What is the character class?: ").lower()
+            conmod=int(input("What is the Constitution modifier?: "))
+            if charclass in ["sorcerer","wizard"]: 
+                print("Health is:", 4+conmod)
+                break
+            elif charclass in ["bard","rogue"]:            
+                print("Health is:", 6+conmod)
+                break
+            elif charclass in ["cleric","monk","druid","ranger"]:              
+                print("Health is:", 8+conmod)
+                break
+            elif charclass in ["fighter","paladin"]:            
+                print("Health is:", 10+conmod)
+                break
+            elif charclass in ["barbarian"]:      
+                print("Health is:", 12+conmod)
+                break
+
+    #Establish the initial ability scores of your character
+    def Initial_Stats(self):
+
+        charclass=input("What is the character class?: ").lower()
+        intmod=int(input("Current Intelligence Mod:"))
+        human=input("Is character human?: ").lower()
+        i=1 
+        while(i<7):  
+            
+            w=random.randint(1,6)
+            x=random.randint(1,6)
+            y=random.randint(1,6)
+            z=random.randint(1,6)
+            
+            if (w>=x>=y>=z) or (w>=y>=x>=z)or (x>=w>=y>=z) or (x>=y>=w>=z)or (y>=w>=x>=z) or (y>=x>=w>=z):
+                print(w+x+y)
+            elif (w>=x>=z>=y) or (w>=z>=x>=y)or (x>=w>=z>=y) or (x>=z>=w>=y)or (z>=w>=x>=y) or (z>=x>=w>=y):
+                print(w+x+z)
+            elif (w>=z>=y>=x) or (w>=y>=z>=x)or (z>=w>=y>=x) or (z>=y>=w>=x)or (y>=w>=z>=x) or (y>=z>=w>=x):
+                print(w+y+z)
+            else :
+                print(x+y+z)
+
+            i=i+1
+
+        if human == "yes":
+            print("Extra feat at first level")
+        print("Class Skill max rank is:", 4)
+        print("Cross-Class Skill max rank is:", 2)
+        if charclass in ["cleric","fighter","sorcerer","wizard"]:
+            if human == "yes":
+                print("Skill Points to spend are:",(2+intmod)*4+4)
+            else:
+                print("Skill Points to spend are:",(2+intmod)*4)
+        if charclass in ["barbarian","druid","monk"]:            
+            if human == "yes":
+                print("Skill Points to spend are:",(4+intmod)*4+4)
+            else:
+                print("Skill Points to spend are:",(4+intmod)*4)
+        if charclass in ["bard","ranger"]:
+            if human == "yes":
+                print("Skill Points to spend are:",(6+intmod)*4+4)
+            else:
+                print("Skill Points to spend are:",(6+intmod)*4)
+        if charclass in ["rogue"]:
+            if human == "yes":
+                print("Skill Points to spend are:",(8+intmod)*4+4)
+            else:
+                print("Skill Points to spend are:",(8+intmod)*4)
+
+
+
+class Level_Up():
+
+    #Provide the new stats of your leveled up character!
+    def levelup(self):
+
+        charclass=input("What is the Character Class?: ").lower()
+        level=int(input("What is the new level gained?: "))
+        if (level%4==0):
+
+            print("*****")
+            print("Increase in Ability Score")
+            print("*****")
+            answer=input("Did you adjust this already?: ").lower()
+            if answer == "no":
+                print("Fix it, then repeat this program")
+                sys.exit()
+
+        hp=int(input("Current HP:"))
+        baseattack=input("Current Base Attack (w,x,y,z):").split(',')
+        conmod=int(input("Current Constitution Mod:"))
+        intmod=int(input("Current Intelligence Mod:"))
+        fortitude=int(input("Current Fortitude Save:"))
+        reflex=int(input("Current Reflex Save:"))
+        will=int(input("Current Will Save:"))
+        human=input("Is the character human?: ").lower()
+        print(" ")
+        print("Level:",level)
+        print("Class:",charclass)
+            
+        if (level%3==0):
+            print("*****")
+            print("Additional Feat")
+            print("*****")
+            
+#For Base Attack
+        if charclass in ["barbarian","fighter","paladin","ranger"]:
+            if level<6:
+                w=int(baseattack[0])
+                w=w+1
+                print("New Base Attack Bonus:",w)
+            if 6<=level<11:
+                w=int(baseattack[0])
+                w=w+1
+                x=int(baseattack[1])
+                x=x+1
+                print("New Base Attack Bonus:",(w,x))
+            if 11<=level<16:
+                w=int(baseattack[0])
+                w=w+1
+                x=int(baseattack[1])
+                x=x+1
+                y=int(baseattack[2])
+                y=y+1
+                print("New Base Attack Bonus:",(w,x,y))
+            if 16<=level:
+                w=int(baseattack[0])
+                w=w+1
+                x=int(baseattack[1])
+                x=x+1
+                y=int(baseattack[2])
+                y=y+1
+                z=int(baseattack[3])
+                z=z+1
+                print("New Base Attack Bonus:",(w,x,y,z))
+
+        if charclass in ["cleric","druid","monk","rogue"]:
+            if level in [5,9,13,17]:
+                print("No change to Base Attack Bonus")
+            if level<8 and level != 5:
+                w=int(baseattack[0])
+                w=w+1
+                print("New Base Attack Bonus:",w)
+            if 8<=level<15 and level != 9 and level !=13:
+                w=int(baseattack[0])
+                w=w+1
+                x=int(baseattack[1])
+                x=x+1
+                print("New Base Attack Bonus:",(w,x))
+            if 15<=level and level != 17:
+                w=int(baseattack[0])
+                w=w+1
+                x=int(baseattack[1])
+                x=x+1
+                y=int(baseattack[2])
+                y=y+1
+                print("New Base Attack Bonus:",(w,x,y))
+
+        if charclass in ["sorcerer","wizard"]:
+            if level in [3,5,7,9,11,13,15,17,19]:
+                print("No change to Base Attack Bonus")
+            if level<12 and level not in [3,5,7,9,11]:
+                w=int(baseattack[0])
+                w=w+1
+                print("New Base Attack Bonus:",w)
+            if level>=12 and level not in [13,15,17,19]:
+                w=int(baseattack[0])
+                w=w+1
+                x=int(baseattack[1])
+                x=x+1
+                print("New Base Attack Bonus:",(w,x))
+            
+#For HP
+        if charclass in ["sorcerer","wizard"]: 
+            print("New Health is:", hp+random.randint(1,4)+conmod)
+        elif charclass in ["bard","rogue"]:            
+            print("New Health is:", hp+random.randint(1,6)+conmod)
+        elif charclass in ["cleric","monk","druid","ranger"]:              
+            print("New Health is:", hp+random.randint(1,8)+conmod)
+        elif charclass in ["fighter","paladin"]:            
+            print("New Health is:", hp+random.randint(1,10)+conmod)
+        elif charclass in ["barbarian"]:      
+            print("New Health is:", hp+random.randint(1,12)+conmod)
+
+#For Saves
+
+        if charclass in ["barbarian","fighter","paladin"]:
+            if level%2==0:
+                 print("New Fortitude is:", fortitude + 1)
+                 if level%3!=0:
+                     print("Other Saves Unchanged")
+            if level%3==0:
+                 print("New Reflex is:", reflex + 1)
+                 print("New Will is:", will + 1)
+                 if level%2!=0:
+                     print("Other Saves Unchanged")
+            elif level%2!=0 and level%3!=0:
+                 print("All Saves Unchanged")
+        elif charclass in ["bard"]:            
+             if level%2==0:
+                 print("New Reflex is:", reflex + 1)
+                 print("New Will is:", will + 1)
+                 if level%3!=0:
+                     print("Other Saves Unchanged")
+             if level%3==0:
+                 print("New Fortitude is:", fortitude + 1)
+                 if level%2!=0:
+                     print("Other Saves Unchanged")
+             elif level%2!=0 and level%3!=0:
+                 print("All Saves Unchanged")
+        elif charclass in ["cleric","druid"]:            
+             if level%2==0:
+                 print("New Fortitude is:", fortitude + 1)
+                 print("New Will is:", will + 1)
+                 if level%3!=0:
+                     print("Other Saves Unchanged")
+             if level%3==0:
+                 print("New Reflex is:", reflex + 1)
+                 if level%2!=0:
+                     print("Other Saves Unchanged")
+             elif level%2!=0 and level%3!=0:
+                 print("All Saves Unchanged")
+        elif charclass in ["monk"]: #Anybody in there?!
+             if level%2==0:
+                 print("New Fortitude is:", fortitude + 1)
+                 print("New Reflex is:", reflex + 1)
+                 print("New Will is:", will + 1)    
+             else:
+                 print("All Saves Unchanged")
+        elif charclass in ["ranger"]:            
+             if level%2==0:
+                 print("New Fortitude is:", fortitude + 1)
+                 print("New Reflex is:", reflex + 1)
+                 if level%3!=0:
+                     print("Other Saves Unchanged")
+             if level%3==0:
+                 print("New Will is:", will + 1)
+                 if level%2!=0:
+                     print("Other Saves Unchanged")
+             elif level%2!=0 and level%3!=0:
+                 print("All Saves Unchanged")
+        elif charclass in ["rogue"]: 
+            if level%2==0:
+                 print("New Reflex is:", reflex + 1)
+                 if level%3!=0:
+                     print("Other Saves Unchanged")
+            if level%3==0:
+                 print("New Fortitude is:", fortitude + 1)
+                 print("New Will is:", will + 1)
+                 if level%2!=0:
+                     print("Other Saves Unchanged")
+            elif level%2!=0 and level%3!=0:
+                 print("All Saves Unchanged")
+        elif charclass in ["sorcerer","wizard"]:
+            if level%2==0:
+                 print("New Will is:", will + 1)
+                 if level%3!=0:
+                     print("Other Saves Unchanged")
+            if level%3==0:
+                 print("New Reflex is:", reflex + 1)
+                 print("New Fortitude is:", Fortitude + 1)
+                 if level%2!=0:
+                     print("Other Saves Unchanged")
+            elif level%2!=0 and level%3!=0:
+                 print("All Saves Unchanged")
+
+#For Skill Points
+        print("Class Skill max rank is:", level+3)
+        print("Cross-Class Skill max rank is:", (level+3)/2)
+        if charclass in ["cleric","fighter","sorcerer","wizard"]:
+            if human == "yes":
+                print("Skill Points to spend are:",2+1+intmod)
+            else:
+                print("Skill Points to spend are:",2+intmod)
+        if charclass in ["barbarian","druid","monk"]:            
+            if human == "yes":
+                print("Skill Points to spend are:",4+1+intmod)
+            else:
+                print("Skill Points to spend are:",4+intmod)
+        if charclass in ["bard","ranger"]:
+            if human == "yes":
+                print("Skill Points to spend are:",6+1+intmod)
+            else:
+                print("Skill Points to spend are:",6+intmod)
+        if charclass in ["rogue"]:
+            if human == "yes":
+                print("Skill Points to spend are:",8+1+intmod)
+            else:
+                print("Skill Points to spend are:",8+intmod)
+
+   
+              
